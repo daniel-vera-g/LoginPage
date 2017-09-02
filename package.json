@@ -1,0 +1,19 @@
+{
+  "name": "loginpage",
+  "version": "1.0.0",
+  "description": "Simple Login Page to learn more about nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-vera-g/LoginPage.git"
+  },
+  "author": "Daniel VG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel-vera-g/LoginPage/issues"
+  },
+  "homepage": "https://github.com/daniel-vera-g/LoginPage#readme"
+}
