@@ -21,7 +21,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 // initialize app
-var app = express();
+var app = express	;
 
 // view engine
 // set folder to handle the views
@@ -38,4 +38,59 @@ app.use(cookieParser());
 
 // set static folder to hold style sheets, images, jquery
 // stuff that is public to the browser
-app.use()
+app.use(express.static(path.join(__dirname, 'public')));
+
+// middleware for Express session
+app.use(session({
+	secret: "secret",
+	saveUninitialized: true,
+	resave: true
+}));
+
+// middleware for the Express validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+// connect to the flash middleware 
+app.use(flash());
+
+// create global variables for flash messages
+// Glob. Messages
+app.use(req, res, next){
+	// create global variables with res.locals
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	req.locals.error = req.flash('error');
+}
+
+// initialisation of the passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// some middleware for the routes
+app.use('/', routes);
+app.use('/users', users);
+
+// set the port and start the server
+
+// set the port 
+app.set('port', (process.env.PORT || 3000));
+
+// listen to port
+app.listen(app.get('port'), function(){
+	console.log('Server started at port' + app.get(port));
+});
