@@ -27,7 +27,7 @@ var app = express	;
 // set folder to handle the views
 // tell express which engine to use
 app.set('views', path.join(__dirname, 'views'));
-// Tell Express that for files with extension html you would like to call the exphbs function to render them 
+// Tell Express that for files with extension html you would like to call the exphbs function to render them
 app.engine('handlebars', exphbs({defaultLayout : 'layout'}));
 app.set('view engine', 'handlebars');
 
@@ -65,7 +65,7 @@ app.use(expressValidator({
   }
 }));
 
-// connect to the flash middleware 
+// connect to the flash middleware
 app.use(flash());
 
 // create global variables for flash messages
@@ -87,7 +87,7 @@ app.use('/users', users);
 
 // set the port and start the server
 
-// set the port 
+// set the port
 app.set('port', (process.env.PORT || 3000));
 
 // listen to port
