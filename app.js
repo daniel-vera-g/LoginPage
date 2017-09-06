@@ -70,12 +70,13 @@ app.use(flash());
 
 // create global variables for flash messages
 // Glob. Messages
-app.use(req, res, next){
+app.use(function(req, res, next){
 	// create global variables with res.locals
 	res.locals.success_msg = req.flash('success_msg');
 	res.locals.error_msg = req.flash('error_msg');
 	req.locals.error = req.flash('error');
-}
+	next();
+});
 
 // initialisation of the passport
 app.use(passport.initialize());
