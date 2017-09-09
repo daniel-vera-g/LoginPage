@@ -13,7 +13,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 // connect to mongoose
-mongoose.connect('mongodb://localhost/loginapp');
+mongoose.connect('mongodb://localhost/loginapp', { useMongoClient: true });
 var db = mongoose.connection;
 
 // making the routes for the web page
@@ -21,7 +21,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 // initialize app
-var app = express	;
+var app = express();
 
 // view engine
 // set folder to handle the views
@@ -70,12 +70,13 @@ app.use(flash());
 
 // create global variables for flash messages
 // Glob. Messages
-app.use(function(req, res, next){
-	// create global variables with res.locals
-	res.locals.success_msg = req.flash('success_msg');
-	res.locals.error_msg = req.flash('error_msg');
-	req.locals.error = req.flash('error');
-	next();
+// Global Vars
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
 });
 
 // initialisation of the passport
@@ -93,5 +94,5 @@ app.set('port', (process.env.PORT || 3000));
 
 // listen to port
 app.listen(app.get('port'), function(){
-	console.log('Server started at port' + app.get(port));
+	console.log('Server started at port' + app.get('port'));
 });

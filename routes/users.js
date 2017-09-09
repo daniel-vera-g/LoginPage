@@ -1,5 +1,5 @@
 var express = require('express');
-var router = require(router);
+var router = express.Router();
 
 // add register route
 router.get('/register', function(req, res){
