@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var User = require('../models/user');
+
 // add register route
 router.get('/register', function(req, res){
   res.render('register');
@@ -35,7 +37,24 @@ router.post('/register', function(req, res){
     //if there are errors re-render the form
     res.render('register', {errors:errors});
   } else {
-    console.log('PASSED');
+    //if there are no erros create new user with the user model
+    var newUser = new User({
+      name:name,
+      email:email,
+      username:username,
+      password:password
+    });
+
+    //create User
+    User.createUser(newUser, function(err, user){
+      if(err) throw err;
+      console.log(user);
+    });
+
+    //ser success message
+    req.flash('success_msg', 'You are registed successful and now you can Log in');
+    //redirect
+    res.redirect('/users/login');
   }
 });
 
