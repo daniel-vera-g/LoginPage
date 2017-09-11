@@ -26,7 +26,7 @@ var UserSchema = mongoose.Schema({
 var User = module.exports = mongoose.model('User', UserSchema);
 
 //create user
-module.exports.createUser = function(newUser, callback){
+module.exports.createUser  = function(newUser, callback){
   //user bcrypt to hash Passwords
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(newUser.password, salt, function(err, hash) {
