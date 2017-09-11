@@ -36,3 +36,17 @@ module.exports.createUser  = function(newUser, callback){
     });
   });
 }
+
+// export getUserByUsername function to authenticate
+module.exports.getUserByUsername = function(username, callback}{
+  var query = {username:username};
+  User.findOne(query, callback);
+}
+
+// export function to compare the password
+module.ecports.comparePassword = function(candidatePassword, hash, callback){
+  // Load hash from your password DB.
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    if(err) throw err;
+    callback(null, isMatct);
+}
