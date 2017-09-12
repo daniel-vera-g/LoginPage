@@ -62,35 +62,38 @@ router.post('/register', function(req, res){
 
 // gets the username --> finds if there is a username that matches
 // Then it validates the password
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+  passport.use(new LocalStrategy(
+    function(username, password, done) {
+     User.getUserByUsername(username, function(err, user){
+     	if(err) throw err;
+     	if(!user){
+     		return done(null, false, {message: 'Unknown User'});
+     	}
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    // check for the username
-    User.getUserByUsername(username, function(err, user){
-      if(err) throw  err;
-      if(!user){
-        return done(null, false, {'message:' 'unknown_user'});
-      }
+     	User.comparePassword(password, user.password, function(err, isMatch){
+     		if(err) throw err;
+     		if(isMatch){
+     			return done(null, user);
+     		} else {
+     			return done(null, false, {message: 'Invalid password'});
+     		}
+     	});
+     });
+    }));
 
-      // compare Passwords
-      User.comparePassword(password, user.password, function( err, isMatch){
-        if(err) throw err;
-        // check for the match
-        if(isMatch){
-          return done(null, user);
-        }else{
-          return done(null, false, {'message': 'Invalid Password'});
-        }
-      })
-    })
-  }
-));
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 // making a post request
-app.post('/login',
-  passport.authenticate('local', {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}),
+router.post('/login',
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
     res.redirect('/');
   });

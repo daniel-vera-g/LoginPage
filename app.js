@@ -47,6 +47,10 @@ app.use(session({
 	resave: true
 }));
 
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
 // middleware for the Express validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
@@ -55,7 +59,7 @@ app.use(expressValidator({
       , formParam = root;
 
     while(namespace.length) {
-      formParam += '[' + namespace.shift + ']';
+      formParam += '[' + namespace.shift() + ']';
     }
     return {
       param : formParam,

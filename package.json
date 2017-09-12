@@ -27,7 +27,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*"
-  },  
+  },
   "bugs": {
     "url": "https://github.com/daniel-vera-g/LoginPage/issues"
   },
