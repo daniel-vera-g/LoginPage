@@ -11,6 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var firebase = require("firebase");
 
 // connect to mongoose
 mongoose.connect('mongodb://localhost/loginapp', { useMongoClient: true });
@@ -100,3 +101,14 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
 	console.log('Server started at port' + app.get('port'));
 });
+
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCljwzsNGn_k1KEsTJ0KTanErnCxlYi6HI",
+    authDomain: "login-app-643dc.firebaseapp.com",
+    databaseURL: "https://login-app-643dc.firebaseio.com",
+    projectId: "login-app-643dc",
+    storageBucket: "",
+    messagingSenderId: "163156604032"
+  };
+  firebase.initializeApp(config);
