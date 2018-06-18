@@ -2,7 +2,7 @@
 
 > A nodejs application with an Login authentifikation.
 
-![r](./img/r.png)
+![r](./public/img/page.png)
 
 ## Installation & Usage
 
