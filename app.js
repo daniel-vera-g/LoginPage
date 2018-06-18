@@ -54,19 +54,19 @@ app.use(passport.session());
 // middleware for the Express validator
 app.use(expressValidator({
 	errorFormatter(param, msg, value) {
-      let namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
+		let namespace = param.split('.')
+			, root    = namespace.shift()
+			, formParam = root;
 
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  },
+		while(namespace.length) {
+			formParam += '[' + namespace.shift() + ']';
+		}
+		return {
+			param : formParam,
+			msg   : msg,
+			value : value
+		};
+	},
 }));
 
 // connect to the flash middleware
@@ -76,11 +76,11 @@ app.use(flash());
 // Glob. Messages
 // Global Vars
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
-  next();
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	res.locals.error = req.flash('error');
+	res.locals.user = req.user || null;
+	next();
 });
 
 // initialisation of the passport
