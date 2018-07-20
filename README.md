@@ -1,6 +1,6 @@
 # Login page
 
-> A nodejs application with an Login authentifikation.
+> A nodejs application with an Login authentication.
 
 ![r](./public/img/page.PNG)
 
